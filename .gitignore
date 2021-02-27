@@ -1,0 +1,9 @@
+/.allure
+/.gradle
+/.idea
+/out
+/build
+*.iml
+*.ipr
+*.iws
+.idea/**

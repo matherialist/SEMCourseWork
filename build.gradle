@@ -1,0 +1,142 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+
+    }
+    
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.koin:koin-gradle-plugin:2.1.6"
+        classpath "io.qameta.allure:allure-gradle:2.8.1"
+        classpath 'com.adarshr:gradle-test-logger-plugin:2.1.1'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
+    }
+}
+plugins {
+    id 'io.qameta.allure' version '2.8.1'
+    id 'com.adarshr.test-logger' version '2.1.1'
+//    id 'de.fuerstenau.buildconfig' version '1.1.8'
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+apply plugin: 'koin'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'idea'
+
+group 'com.holeaf.api'
+version '0.1.0'
+mainClassName = "io.ktor.server.netty.EngineMain"
+
+ext {
+    allureVersion = '2.13.7'
+    junitVersion = '5.7.0'
+    exposedVersion = '0.28.1'
+    koinVersion = "2.1.6"
+    ktorVersion = "1.4.0"
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransformer
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': "io.ktor.server.jetty.EngineMain"
+    }
+    transform(ServiceFileTransformer) {
+        path = 'META-INF/services'
+        include 'org.eclipse.jetty.http.HttpFieldPreEncoder'
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    systemProperty "file.encoding", "UTF-8"
+    minHeapSize = "256m"
+    maxHeapSize = "1024m"
+    failFast = false
+    maxParallelForks = 1
+}
+
+testlogger {
+    logLevel 'quiet'
+    theme 'standard'
+}
+
+allure {
+    autoconfigure = true
+    version = "${allureVersion}"
+}
+
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src']
+    test.kotlin.srcDirs = test.java.srcDirs = ['test']
+    main.resources.srcDirs = ['resources']
+    test.resources.srcDirs = ['testresources']
+}
+
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "io.ktor:ktor-server-netty:${ktorVersion}"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    implementation "io.ktor:ktor-server-core:${ktorVersion}"
+    implementation "io.ktor:ktor-html-builder:${ktorVersion}"
+    implementation "io.ktor:ktor-server-host-common:${ktorVersion}"
+    implementation "io.ktor:ktor-websockets:${ktorVersion}"
+    implementation "io.ktor:ktor-auth:${ktorVersion}"
+    implementation "io.ktor:ktor-locations:${ktorVersion}"
+    implementation "io.ktor:ktor-gson:${ktorVersion}"
+    implementation "io.ktor:ktor-client-core:${ktorVersion}"
+    implementation "io.ktor:ktor-client-core-jvm:${ktorVersion}"
+    implementation "io.ktor:ktor-client-apache:${ktorVersion}"
+    implementation "io.ktor:ktor-jackson:${ktorVersion}"
+    implementation "org.koin:koin-ktor:${koinVersion}"
+    implementation "org.koin:koin-core:${koinVersion}"
+    implementation "org.koin:koin-core-ext:${koinVersion}"
+    testImplementation "org.koin:koin-test:${koinVersion}"
+    testImplementation "io.ktor:ktor-server-tests:${ktorVersion}"
+    testImplementation "io.mockk:mockk:1.10.2"
+    implementation "org.jetbrains.exposed:exposed-core:${exposedVersion}"
+    implementation "org.jetbrains.exposed:exposed-dao:${exposedVersion}"
+    implementation "org.jetbrains.exposed:exposed-jdbc:${exposedVersion}"
+    implementation "com.impossibl.pgjdbc-ng:pgjdbc-ng:0.8.3"
+    implementation "org.apache.commons:commons-email:1.4"
+    implementation "ch.qos.logback:logback-classic:1.2.3"
+    testImplementation('org.assertj:assertj-core:3.17.1')
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
+    testImplementation('org.slf4j:slf4j-simple:1.7.29')
+    testImplementation("io.qameta.allure:allure-junit4:${allureVersion}")
+}
+//
+//buildConfig {
+//    solaris {
+//        target = "solaris"
+//    }
+//    dev {
+//        target = "dev"
+//    }
+//}
