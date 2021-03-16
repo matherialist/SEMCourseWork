@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">holeaf</string>
+    <!-- Strings related to login -->
+    <string name="prompt_login">Имя для входа</string>
+    <string name="prompt_email">Адрес e-mail</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Вход</string>
+    <string name="action_sign_in_short">Вход</string>
+    <string name="action_register">Регистрация</string>
+    <string name="action_register_short">Вход</string>
+    <string name="action_password_recovery">Восстановить пароль</string>
+    <string name="welcome">"Добро пожаловать, "</string>
+    <string name="invalid_username">Неправильное имя пользователя</string>
+    <string name="invalid_password">Пароль должен состоять не менее, чем из 6 символов</string>
+    <string name="login_failed">Неправильное имя пользователя или пароль</string>
+    <string name="title_activity_maps">Карта</string>
+    <string name="confirm_password">Пароль повторно</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="passwords_not_match">Пароли не совпадают</string>
+    <string name="error_in_email">Недопустимый адрес электронной почты</string>
+    <string name="send_request">Отправить запрос</string>
+    <string name="password_recovery">Восстановление пароля</string>
+    <string name="password_sent_to_email">Новый пароль отправлен на указанную почту</string>
+    <string name="recovery_failed">Произошла ошибка при восстановлении пароля</string>
+    <string name="email_is_required">Вам необходимо ввести e-mail</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD-qd4W4VVKhgxNUXTjFPlPI2ylfq0-D0g</string>
+    <string name="error_retrieving_profile">Ошибка при получении информации о пользователе</string>
+</resources>

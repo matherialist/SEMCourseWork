@@ -8,3 +8,12 @@
 *.iws
 .idea/**
 /gradle/wrapper
+/local.properties
+.DS_Store
+/captures
+.externalNativeBuild
+.cxx
+/app/build
+gradle.properties
+settings.gradle
+debug.log

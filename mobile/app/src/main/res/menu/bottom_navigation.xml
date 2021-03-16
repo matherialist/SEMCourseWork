@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_map"
+        android:icon="@drawable/ic_map_24"
+        android:title="Карта" />
+
+    <item
+        android:id="@+id/nav_orders"
+        android:icon="@drawable/ic_whatshot_24px_outlined"
+        android:title="Заказы"/>
+
+    <item
+        android:id="@+id/nav_shop"
+        android:icon="@drawable/cannabis_leaf"
+        android:title="Магазин"/>
+
+
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/ic_chat_bubble_outline_24"
+        android:title="Чат" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_person_outline_24"
+        android:title="Профиль" />
+
+</menu>
